@@ -17,8 +17,9 @@ export const useMenuStore = defineStore('menu', () => {
     }
 
     try {
-      const result = await fetch(`localhost:3000/${dataTime[param]}`)
-      data.value = result
+      const result = await fetch(`http://localhost:3000${dataTime[param]}`)
+      const dataJson = await result.json()
+      data.value = dataJson
     } catch (error) {
       console.log(error)
     }

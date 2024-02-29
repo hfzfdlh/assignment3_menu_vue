@@ -42,13 +42,13 @@ function changeMealTime(param){
   
   <div class="mt-5 ">
     <div v-if="store.menuTime === 'breakfast'" class="container-fluid bg-white p-4">
-        <MenuItem  v-for="item in breakfastData" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
     </div>
     <div v-else-if="store.menuTime === 'lunch'" class="container bg-white p-4">
-        <MenuItem  v-for="item in lunchData" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
     </div>
     <div v-else-if="store.menuTime === 'dinner'" class="container bg-white p-4">
-        <MenuItem  v-for="item in dinnerData" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
     </div>
   </div>
 
