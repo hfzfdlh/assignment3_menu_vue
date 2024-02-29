@@ -1,11 +1,15 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const cors = require('cors')
 const breakfastData =require('./data/menuBreakfast.json')
 const lunchData =require('./data/menuLunch.json')
 const dinnerData =require('./data/menuDinner.json')
 const fs = require('fs')
+
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').config();
+}
 
 app.use(cors())
 app.use(express.json())
