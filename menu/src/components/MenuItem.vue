@@ -1,7 +1,12 @@
 <script setup>
+import { useRouter } from 'vue-router';
+const item  = defineProps(['item','time'])
 
-const item  = defineProps(['item'])
-console.log(item.item)
+
+const router = useRouter()
+function toEdit(){
+    router.push(`/edit-menu/${item.time}/${item.item.id}`)
+}
 </script>
 
 <template>
@@ -23,12 +28,17 @@ console.log(item.item)
                 <div class="row">
                     <p>{{ item.item.description }}</p>
                 </div>
+                <div class="row ms-1">
+                    <button class="btn btn-warning" @click.prevent="toEdit()">Edit</button>
+                </div>
                 </div>
             </div>      
         </div>
     </div>
 </template>
 <style scoped>
-
+button{
+    width:20%
+}
 
 </style>

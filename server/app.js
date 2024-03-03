@@ -17,6 +17,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.get('/data-breakfast',async(req, res)=>{
     try {
+        console.log(breakfastData)
         res.json(breakfastData)
     } catch (error) {
         res.send(error)
@@ -86,6 +87,58 @@ app.post('/add-menu', async(req,res)=>{
     fs.writeFileSync(dataObj[time],data_json)
     res.send("new data added") 
 
+})
+
+app.get('/get-one-menu/:time/:id',async(req, res)=>{
+    try {
+        const {time,id} = req.params
+
+        const dataObj = {
+            'Breakfast':'./data/menuBreakfast.json',
+            'Lunch':'./data/menuLunch.json',
+            'Dinner':'./data/menuDinner.json'
+        }
+
+        let dataJson = JSON.parse(fs.readFileSync(dataObj[time],'utf-8'))
+        let result= dataJson.filter(el=> el.id===id)
+        res.json(result)
+
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+app.put('/edit-menu/:time/:id', async(req,res)=>{
+    try {
+        const {time,id} = req.params
+        const input = req.body
+
+        const dataObj = {
+            'Breakfast':'./data/menuBreakfast.json',
+            'Lunch':'./data/menuLunch.json',
+            'Dinner':'./data/menuDinner.json'
+        }
+
+        let dataJson = JSON.parse(fs.readFileSync(dataObj[time],'utf-8'))
+        dataJson = dataJson.map(el=>{
+            if(el.id === id){
+                el.name = input.name,
+                el.image = input.image,
+                el.price = input.price,
+                el.description = input.description
+                return el
+            } else{
+                return el
+            }
+        })
+        console.log(dataJson)
+
+        let data_json = JSON.stringify(dataJson)
+        fs.writeFileSync(dataObj[time],data_json)
+        res.send("Data edited")
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 

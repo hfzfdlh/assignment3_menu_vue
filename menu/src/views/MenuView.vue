@@ -3,7 +3,7 @@ import breakfastData from '../assets/menuBreakfast.json'
 import lunchData from '../assets/menuLunch.json'
 import dinnerData from '../assets/menuDinner.json'
 import MenuItem from '../components/MenuItem.vue'
-import {ref} from 'vue'
+import {onBeforeMount, ref} from 'vue'
 import { useMenuStore } from '@/stores/menuData'
 
 const store =  useMenuStore()
@@ -11,8 +11,10 @@ const store =  useMenuStore()
 function changeMealTime(param){
     store.menuTime= param
     store.fetchData(param)
-    console.log(store.menuTime.value)
+    console.log(store.menuTime)
 }
+
+
 
 
 
@@ -42,13 +44,13 @@ function changeMealTime(param){
   
   <div class="mt-5 ">
     <div v-if="store.menuTime === 'breakfast'" class="container-fluid bg-white p-4">
-        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" :time="'Breakfast'"/>
     </div>
     <div v-else-if="store.menuTime === 'lunch'" class="container bg-white p-4">
-        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" :time="'Lunch'"/>
     </div>
     <div v-else-if="store.menuTime === 'dinner'" class="container bg-white p-4">
-        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" />
+        <MenuItem  v-for="item in store.data" :key="item.id" :item="item" :time="'Dinner'"/>
     </div>
   </div>
 
