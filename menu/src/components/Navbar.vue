@@ -18,6 +18,9 @@ import { RouterLink } from 'vue-router'
           <router-link class="nav-link" to="/menu">MENU</router-link>
         </li>
         <li class="nav-item">
+          <router-link class="nav-link" to="/add-menu">ADD MENU</router-link>
+        </li>
+        <li class="nav-item">
             <router-link class="btn btn-warning" to="/book">BOOK A TABLE</router-link>
         </li>
       </ul>

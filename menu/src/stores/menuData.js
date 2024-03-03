@@ -1,5 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
+
 
 export const useMenuStore = defineStore('menu', () => {
   const data = ref(null)
@@ -8,6 +10,9 @@ export const useMenuStore = defineStore('menu', () => {
   // function increment() {
   //   count.value++
   // }
+  const router = useRouter()
+
+  const URL = 'http://localhost:3000'
 
   const fetchData = async (param)=>{
     const dataTime = {
@@ -17,7 +22,7 @@ export const useMenuStore = defineStore('menu', () => {
     }
 
     try {
-      const result = await fetch(`http://localhost:3000${dataTime[param]}`)
+      const result = await fetch(`${URL}${dataTime[param]}`)
       const dataJson = await result.json()
       data.value = dataJson
     } catch (error) {
@@ -25,5 +30,22 @@ export const useMenuStore = defineStore('menu', () => {
     }
   }
 
-  return { data, menuTime, fetchData}
+  const postNewMenu = async (data)=>{
+    try {
+      const result = await fetch(`${URL}/add-menu`,{
+        method:'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      router.push('/menu')
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return { data, menuTime, fetchData, postNewMenu}
 })

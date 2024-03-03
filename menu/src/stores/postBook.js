@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 
 export const useBookStore = defineStore('book', () => {
 
-
+const URL = 'http://localhost:3000'
 
   const postData = async (data)=>{
     try {
-      const result = await fetch(`http://localhost:3000/bookings`,{
+      const result = await fetch(`${URL}/bookings`,{
         method:'POST',
         headers: {
           'Accept': 'application/json',

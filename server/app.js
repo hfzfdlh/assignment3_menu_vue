@@ -59,6 +59,34 @@ app.post('/bookings', async (req,res)=>{
     res.send("new data added")
 
 })
+app.post('/add-menu', async(req,res)=>{
+    console.log(req.body)
+    const {time} = req.body
+    const dataObj = {
+        'Breakfast':'./data/menuBreakfast.json',
+        'Lunch':'./data/menuLunch.json',
+        'Dinner':'./data/menuDinner.json'
+    }
+
+    let dataJson = JSON.parse(fs.readFileSync(dataObj[time]))
+
+    let new_id = dataJson.length + 1;
+
+    const newData = {
+        id:new_id,
+        name:req.body.name,
+        image:req.body.image,
+        price:req.body.price,
+        description:req.body.description
+    }
+
+
+    dataJson.push(newData)
+    let data_json = JSON.stringify(dataJson)
+    fs.writeFileSync(dataObj[time],data_json)
+    res.send("new data added") 
+
+})
 
 
 app.listen(port, () => {
